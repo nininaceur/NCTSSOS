@@ -1,7 +1,3 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__, ".."))
-Pkg.instantiate()
-
 using DynamicPolynomials
 using NCTSSOS
 import Polynomials: roots
