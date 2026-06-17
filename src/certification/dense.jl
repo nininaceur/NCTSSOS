@@ -18,21 +18,21 @@ function rational_certificate(f, ineq, eq, vars, r; partition=nothing, constrain
 
     time_sdp = @elapsed begin
         if partition === nothing && constraint === nothing
-            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), QUIET=QUIETTS, Gram=true)
+            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), QUIET=QUIETTS, Gram=true, CS=false)
         elseif partition === nothing
-            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), constraint=constraint, QUIET=QUIETTS, Gram=true)
+            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), constraint=constraint, QUIET=QUIETTS, Gram=true, CS=false)
         elseif constraint === nothing
-            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), partition=partition, QUIET=QUIETTS, Gram=true)
+            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), partition=partition, QUIET=QUIETTS, Gram=true, CS=false)
         else
-            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), partition=partition, constraint=constraint, QUIET=QUIETTS, Gram=true)
+            opt,data = ncpop(pop, vars ,r, TS=TS,numeq=length(eq), partition=partition, constraint=constraint, QUIET=QUIETTS, Gram=true, CS=false)
         end
     end
 
     println("Numerical certificate computed in $time_sdp seconds.")
     println("Computing LHS...")
     t_lhs = @elapsed begin
-        g0 = data.GramMat[1][1]
-        basis0 = basis_to_monovec(vars, data.basis[1])
+        g0 = data.GramMat[1][1][1]
+        basis0 = basis_to_monovec(vars, data.basis[1][1])
         LHS = compute_LHS(f, opt, vars, r, data, ineq, eq, tol=tol)
     end
     println("LHS computed in $t_lhs seconds.")
