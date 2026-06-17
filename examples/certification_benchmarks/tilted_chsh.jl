@@ -58,6 +58,6 @@ function bounds_table(alpha, r_max::Int)
 end
 
 alph = 0.999
-r_max = 10
+r_max = 5
 
 tbl = bounds_table(alph, r_max)
