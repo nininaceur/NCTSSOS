@@ -80,9 +80,10 @@ function ncpop(pop::Vector{NCPoly{T}}, x, d; numeq=0, CS="MF", TS="block", newto
             for j = 1:length(I[i])
                 basis[i][j] = get_ncbasis(cliquesize[i], d-ceil(Int, maxdeg(pop_cons[I[i][j]])/2), ind=cliques[i], binary=constraint!==nothing)
             end
-            for ba in basis[i]
+            for j in eachindex(basis[i])
+                ba = basis[i][j]
                 ind = [_comm(item, partition, comm_var) == item for item in ba]
-                ba = ba[ind]
+                basis[i][j] = ba[ind]
             end
         else
             if obj == "trace"
