@@ -3,7 +3,6 @@ import Pkg
 Pkg.activate(joinpath(@__DIR__, ".."))
 Pkg.instantiate()
 
-using CertifiedQuantumBounds
 using DynamicPolynomials
 using NCTSSOS
 import Base.Filesystem: basename, splitext
