@@ -15,31 +15,7 @@ pkg> add https://github.com/wangjie212/NCTSSOS
 NCTSSOS has been tested on Ubuntu and Windows.
 
 ## Usage
-### Unconstrained non-commutative polynomial optimization
-Taking $f=1+x_1^4+x_2^4+x_3^4+x_1x_2+x_2x_1+x_2x_3+x_3x_2$ as an example, to compute the first step of the NCTSSOS hierarchy, run
-
-```Julia
-using NCTSSOS
-using DynamicPolynomials
-@ncpolyvar x[1:3]
-f = 1 + x[1]^4 + x[2]^4 + x[3]^4 + x[1]*x[2] + x[2]*x[1] + x[2]*x[3] + x[3]*x[2]
-opt,data = ncpop(f, x, obj="eigen")
-```
-
-To sovle higher steps of the NCTSSOS hierarchy, repeatedly run
-
-```Julia
-opt,data = ncpop(data)
-```
-
-Options:  
-**obj**: "eigen" by default (perform eigenvalue minimization), "trace" (perform trace minimization)  
-**TS**: "block" by default (maximal chordal extension), "MD" (approximately smallest chordal extension), false (invalidating term sparsity iterations) 
-**partition**: specify that the first *partition* variables commute with the remaining variables  
-**comm_var**: specify that the first *comm_var* variables commute each other  
-**constraint**: nothing by default or "projection" (satisfying $x_i^2=x_i$) or "unipotent" (satisfying $x_i^2=1$)  
-
-### Constrained non-commutative polynomial optimization
+### Non-commutative polynomial optimization
 Taking the objective $f=2-x_1^2+x_1x_2^2x_1-x_2^2$ and constraints $g=4-x_1^2-x_2^2\ge0$, $h=x_1x_2+x_2x_1-2=0$ as an example, to solve the first step of the NCTSSOS hierarchy, run
 
 ```Julia
@@ -60,23 +36,17 @@ opt,data = ncpop(data)
 
 Options:  
 **obj**: "eigen" by default (perform eigenvalue minimization), "trace" (perform trace minimization)  
+**CS**: "MF" by default, false (invalidating correlative sparsity exploitation)  
 **TS**: "block" by default (maximal chordal extension), "MD" (approximately smallest chordal extension), false (invalidating term sparsity iterations)  
 **partition**: specify that the first *partition* variables commute with the remaining variables  
 **comm_var**: specify that the first *comm_var* variables commute each other  
 **constraint**: nothing by default or "projection" (satisfying $x_i^2=x_i$) or "unipotent" (satisfying $x_i^2=1$)  
 
-To exploit correlative sparsity and term sparsity simultaneously, run
-
-```Julia
-opt,data = ncpop(pop, x, d, obj="eigen")
-opt,data = ncpop(data)
-```
-
 ### Trace polynomial optimization
 Check out /examples/traceopt.jl.
 
 ### State polynomial optimization
-Check out /examples/stateopt.jl for state polynomial optimization over real numbers and /examples/state_complex.jl for state polynomial optimization over complex numbers.
+Check out /examples/stateopt.jl.
 
 ## References
 [1] [Exploiting Term Sparsity in Noncommutative Polynomial Optimization](https://arxiv.org/abs/2010.06956), 2021.  

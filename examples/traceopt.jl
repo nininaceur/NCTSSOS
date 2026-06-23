@@ -5,12 +5,14 @@ n = 3
 pop = [statepoly([[[1;2;3]], [[1;2], [3]]], [1; 1])]
 d = 3
 opt,data = statepop(pop, n, d, type="trace", TS=false, constraint="projection")
+# opt = -0.0312500
 
 # Example 6.2.0
 n = 4
 pop = [statepoly([[[1;3]], [[1;4]], [[2;3]], [[2;4]]], [-1; -1; -1; 1])]
 d = 1
 opt,data = statepop(pop, n, d, type="trace", TS="block", constraint="unipotent")
+# opt = -2.828427
 
 # Example 6.2.1
 n = 4
@@ -18,6 +20,7 @@ pop = [statepoly([[[1;4], [1;4]], [[2;3], [2;3]], [[1;4], [2;3]], [[1;3], [1;3]]
 [-1; -1; -2; -1; -1; 2])]
 d = 2
 opt,data = statepop(pop, n, d, type="trace", TS=false, constraint="unipotent")
+# opt = -4
 
 # Example 6.2.2
 n = 6
@@ -26,6 +29,7 @@ supp = [[[1;4]], [[1], [4]], [[1;5]], [[1], [5]], [[1;6]], [[1], [6]], [[2;4]], 
 coe = [-1; 1; -1; 1; -1; 1; -1; 1; -1; 1; 1; -1; -1; 1; 1; -1]
 d = 2
 opt,data = statepop([statepoly(supp, coe)], n, d, type="trace", TS=false, constraint="unipotent")
+# opt = -5
 
 # Example 6.2.3
 n = 8
@@ -51,3 +55,4 @@ ncstatepoly([tuple([1;1], Vector{Int}[]), tuple([2;2], Vector{Int}[]), tuple([3;
 ncstatepoly([tuple([1;2], Vector{Int}[]), tuple([2;1], Vector{Int}[])], [1; -1])]
 d = 2
 opt,data = statepop(pop, n, d, type="trace", numeq=1, TS="block")
+# opt = -0.25

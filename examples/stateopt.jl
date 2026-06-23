@@ -9,6 +9,7 @@ n = 4 # number of variables
 pop = [statepoly([[[1;3]], [[1;4]], [[2;3]], [[2;4]]], [-1; -1; -1; 1])]
 d = 2 # relaxation order
 opt,data = statepop(pop, n, d, vargroup=[2;2], TS="block", constraint="unipotent")
+# opt = -2.828427
 # vargroup = [2;2] defines [xi, yj] = 0
 # constraint = "unipotent" defines xi^2 = 1, yj^2 = 1
 
@@ -17,6 +18,7 @@ n = 4
 pop = [statepoly([[[1;4], [1;4]], [[2;3], [2;3]], [[1;4], [2;3]], [[1;3], [1;3]], [[2;4], [2;4]], [[1;3], [2;4]]], [-1; -1; -2; -1; -1; 2])]
 d = 3
 opt,data = statepop(pop, n, d, vargroup=[2;2], TS=false, constraint="unipotent")
+# opt = -4
 
 ## Example 7.2.2
 n = 6
@@ -25,6 +27,7 @@ pop = [statepoly([[[1;4]], [[1], [4]], [[1;5]], [[1], [5]], [[1;6]], [[1], [6]],
 [-1; 1; -1; 1; -1; 1; -1; 1; -1; 1; 1; -1; -1; 1; 1; -1])]
 d = 2
 opt,data = statepop(pop, n, d, vargroup=[3;3], TS="block", constraint="unipotent")
+# opt = -5
 
 ## Example 7.2.3
 n = 4
@@ -33,6 +36,7 @@ pop = [statepoly([[[2]], [[3]], [[4]], [[1;3]], [[2;3]], [[1;4]], [[2;4]], [[1],
 -[1; 1; 1; -1; 1; 1; 1; -1; -1; -1; -1; -1])]
 d = 2
 opt,data = statepop(pop, n, d, vargroup=[2;2], TS="block", constraint="unipotent")
+# opt = -3.511480
 
 # quantum bilocal networks
 ## Example 8.1.1
@@ -48,9 +52,8 @@ pop = [statepoly([[[1;3;5], [1;3;5]], [[1;3;6], [1;3;6]], [[2;3;5], [2;3;5]], [[
 [1/8*[1; 1; 1; 1; 1; 1; 1; 1; 2; 2; 2; -2; 2; 2; -2; 2; 2; -2; 2; 2; -2; 2; -2; 2; 2; -2; 
 -2; 2; 2; -2; -2; -2; 2; 2; -2; -2]; -[1; 1; 1; 1; 1; -1; -1; 1]])]
 d = 3
-@time begin
 opt,data = statepop(pop, n, d, constraint="unipotent", vargroup=[2;2;2], TS="block", solve=true, bilocal=[2;5])
-end
+# opt = -4
 
 ## Example 8.1.2
 n = 8
@@ -126,10 +129,9 @@ zero_moments = sort([[1], [2], [3], [4], [5], [6], [7], [8], [9],
          [1;4;7], [1;4;8], [1;4;9], [1;5;7], [1;5;8], [1;6;7], [1;6;9],
          [2;4;7], [2;4;8], [2;5;7], [2;5;8], [2;5;9], [2;6;8], [2;6;9],
          [3;4;7], [3;4;9], [3;5;8], [3;5;9], [3;6;7], [3;6;8], [3;6;9]])
-@time begin
-opt,data = statepop([statepoly(supp, coe)], n, d, constraint="unipotent", vargroup=[3;3;3], TS="block", solve=true, bilocal=[3;7], zero_moments=zero_moments)
+opt,data = statepop([statepoly(supp, coe)], n, d, constraint="unipotent", vargroup=[3;3;3], TS=false, solve=true, bilocal=[3;7], zero_moments=zero_moments)
+# opt = -4.4661257
 # opt,data = statepop(data, TS="block", bilocal=[3;7], zero_moments=zero_moments)
-end
 
 ## Example 8.1.3+
 n = 10
