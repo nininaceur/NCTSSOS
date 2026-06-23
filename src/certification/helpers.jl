@@ -10,12 +10,13 @@ function basis_to_monovec(xvars::Vector, data::Vector{Vector{Int}})
     return basis
 end
 
-normal_form(arr, vars, partition, constraint) =
-    get!(_nf_cache, arr) do
-        NCTSSOS.reduce(
-            var_from_array(vars, arr),
-            vars; obj = "eigen", partition = partition, constraint = constraint)
+function normal_form(arr, vars, partition, constraint)
+    arr = Vector{Int}(arr)
+    get!(_nf_cache, (Tuple(arr), partition === nothing ? 0 : partition, constraint)) do
+        word = reduce!(copy(arr); obj = "eigen", partition = partition === nothing ? 0 : partition, constraint = constraint)
+        var_from_array(vars, word)
     end
+end
 
 concat_nf(u,v,vars,partition,constraint) =
     get!(_concat_nf_cache,
